@@ -2,7 +2,7 @@ from sqlalchemy import String, Date, Float, Enum
 from sqlalchemy.orm import Mapped, mapped_column
 from datetime import date
 from .enum.Type_Employee import TypeEmployee
-from base import Base
+from open_box_db.base import Base
 
 
 class Employee(Base):

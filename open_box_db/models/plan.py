@@ -1,6 +1,6 @@
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from base import Base
+from open_box_db.base import Base
 
 
 class Plan(Base):

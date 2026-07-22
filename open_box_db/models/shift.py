@@ -1,7 +1,7 @@
 from sqlalchemy import String, DateTime
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
-from base import Base
+from open_box_db.base import Base
 
 
 class Shift(Base):

@@ -1,7 +1,7 @@
 from sqlalchemy import ForeignKey, String, Date
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import date
-from base import Base
+from open_box_db.base import Base
 
 
 class Athlete(Base):
