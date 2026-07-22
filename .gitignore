@@ -194,9 +194,11 @@ cython_debug/
 *.user
 *.suo
 
+
 #OS files
 .DS_Store
 Thumbs.db
+
 
 # Ruff stuff:
 .ruff_cache/
