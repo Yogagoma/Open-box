@@ -1,6 +1,6 @@
 import platform
 import flet as ft
-from open_box_db.models.base import SessionLocal
+from open_box_db.base import SessionLocal
 from open_box_db.models.employee import Employee
 from open_box_db.hash import sha256_hash
 
