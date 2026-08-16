@@ -1,8 +1,9 @@
 import platform
 import flet as ft
-from open_box_db.base import SessionLocal
+from open_box_db.base import SessionLocal, Base, engine
 from open_box_db.models.employee import Employee
 from open_box_db.hash import sha256_hash
+
 
 def main(page: ft.Page):
     page.title = "Open box"
@@ -15,7 +16,7 @@ def main(page: ft.Page):
 
     #Login
     userField = ft.TextField()
-    passwordField = ft.TextField()
+    passwordField = ft.TextField(password=True, can_reveal_password=False)
 
     #Text to show errors
     errorText = ft.Text(color="red")
@@ -24,7 +25,7 @@ def main(page: ft.Page):
 
     def login(e):
         username = userField.value.strip()
-        password = userField.value.strip()
+        password = passwordField.value.strip()
 
         #Basic validations
         if not username:
@@ -84,6 +85,10 @@ def main(page: ft.Page):
 
 
 if __name__ == "__main__":
+
+    # Initialize database tables before running the app
+    Base.metadata.create_all(bind=engine)
+
     os = platform.system()
     version = platform.release()
 
