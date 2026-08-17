@@ -27,6 +27,7 @@ class LoginScreen(ft.Column):
             ft.Text("Login", size=30),
             self.user_field,
             self.password_field,
+            self.signup_link,
             self.login_button,
             self.error_text
         ]
