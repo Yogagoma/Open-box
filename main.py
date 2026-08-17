@@ -16,7 +16,7 @@ def main(page: ft.Page):
     def show_login(e=None):
         page.clean()
         # Pass show_signup as the callback
-        page.add(LoginScreen(page, on_navigate_signup=show_signup))
+        page.add(LoginScreen(page, on_navigate_sign_up=show_signup))
         page.update()
 
     def show_signup(e=None):
