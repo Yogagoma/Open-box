@@ -1,82 +1,32 @@
 import platform
+from turtle import onclick
 import flet as ft
-from open_box_db.base import SessionLocal, Base, engine
-from open_box_db.models.employee import Employee
-from open_box_db.hash import sha256_hash
+from open_box_db.base import Base, engine
+from ui.screens import login_view
+from ui.screens.login_view import LoginScreen
+from ui.screens.sign_up_screen import SignUpScreen
+
+
 
 
 def main(page: ft.Page):
     page.title = "Open box"
 
-    # Window resolution
-    page.window.width = 1280
-    page.window.height = 720
-
-    page.theme_mode = ft.ThemeMode.SYSTEM #Window theme mode by default
-
-    #Login
-    userField = ft.TextField()
-    passwordField = ft.TextField(password=True, can_reveal_password=False)
-
-    #Text to show errors
-    errorText = ft.Text(color="red")
-
-
-
-    def login(e):
-        username = userField.value.strip()
-        password = passwordField.value.strip()
-
-        #Basic validations
-        if not username:
-            errorText.value = 'Type a user'
-            page.update()
-            return
-
-        if not password:
-             errorText.value = 'Type a password'
-             page.update()
-             return
-
-        #Search for a user in the database
-        db = SessionLocal()
-        user = db.query(Employee).filter(Employee.user_name == username).first()
-
-        if not user:
-            errorText.value = "Not found"
-            page.update()
-            return
-
-        if sha256_hash(password) != user.password_hash:
-            errorText.value = "Incorrect password"
-            page.update()
-            return
-
-        #Successfull login
+    # Define navigation functions
+    def show_login(e=None):
         page.clean()
-        page.add(ft.Text(f"Welcome, {user.name}", size=30))
-        
-    loginButton = ft.ElevatedButton('Login', on_click=login,align=ft.Alignment.CENTER)
+        # Pass show_signup as the callback
+        page.add(LoginScreen(page, on_navigate_signup=show_signup))
+        page.update()
 
-    page.add(
-        ft.Column(
-            [
-                ft.Text("Login", size=30),
-                userField,
-                passwordField,
-                loginButton,
-                errorText
-            ],
-            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-            alignment=ft.MainAxisAlignment.CENTER
-        )
-    )
+    def show_signup(e=None):
+        page.clean()
+        # Pass show_login as the callback
+        page.add(SignUpScreen(page, on_navigate_login=show_login))
+        page.update()
 
-
-
-
-
-
+    # Start the app on the login screen
+    show_login()
 
 
 
