@@ -51,7 +51,7 @@ class SignUpScreen(ft.Column):
         name = self.name_field.value.strip()
         last_name = self.last_name_field.value.strip()
         user_name = self.user_name_field.value.strip()
-        phone_number = int(self.phone_number_field.value.strip())
+        phone_number = self.phone_number_field.value.strip()
         password = self.password_field.value.strip()
         confirm_password = self.confirm_password_field.value.strip()
 
@@ -66,6 +66,22 @@ class SignUpScreen(ft.Column):
             self.show_message('Passwords do not match.')
             return
 
+        # Convert the phone number to an integer
+        try:
+            phone_number = int(phone_number)
+        except ValueError:
+            # If they typed letters, symbols, or spaces inside the number, catch it here
+            self.show_message('Phone number must contain only numbers.')
+        return
+
+        # Convert the ID to an integer 
+        try:
+            ID = int(ID)
+        except ValueError:
+            self.show_message('ID must contain only numbers.')
+            return
+
+        # Open a db session
         db = SessionLocal()
 
         # Check if username exist
