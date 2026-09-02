@@ -1,16 +1,18 @@
 import platform
-from turtle import onclick
 import flet as ft
 from open_box_db.base import Base, engine
-from ui.screens import login_view
 from ui.screens.login_view import LoginScreen
 from ui.screens.sign_up_screen import SignUpScreen
 
 
+# ── Shared design tokens ──────────────────────────────────────────
+BG_COLOR = "#0f0f1a"
 
 
 def main(page: ft.Page):
     page.title = "Open box"
+    page.bgcolor = BG_COLOR
+    page.padding = 0
 
     # Define navigation functions
     def show_login(e=None):
@@ -27,11 +29,6 @@ def main(page: ft.Page):
 
     # Start the app on the login screen
     show_login()
-
-
-
-    
-
 
 
 if __name__ == "__main__":
@@ -51,7 +48,7 @@ if __name__ == "__main__":
     # If the operating system version is not Windows 10 or 11, the aplication will be displayed on a web browser   
     if os == "Windows" and version_num < 10:
         print(f"Detectado Windows {version}. Usando modo navegador.")
-        ft.app(target=main, view=ft.AppView.WEB_BROWSER)
+        ft.run(main, view=ft.AppView.WEB_BROWSER)
     else:
         print(f"Detectado sistema compatible: {os} {version}. Usando modo escritorio.")
-        ft.app(target=main)
+        ft.run(main)
